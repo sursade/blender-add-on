@@ -2,13 +2,13 @@ import bpy
 
 
 bl_info = {
-       "name": "My Awesome add-on",
+       "name": "Easy Render Settings",
        "blender": (3, 0, 0),
        "category": "Object",
    }
 
 
-# test
+
 #this class creates an Operator for Cycles 
 class CONTEXT_OT_change_render_engine_cycles(bpy.types.Operator):
     """Just for a testing purposes"""
@@ -78,8 +78,8 @@ class CONTEXT_OT_starting_preset(bpy.types.Operator):
     bl_label = "Working Preset"
 
     def execute(self, context):
-        # bpy.context.scene.cycles.samples = 256
-        # bpy.context.scene.cycles.preview_samples = 128
+        bpy.context.scene.cycles.samples = 256
+        bpy.context.scene.cycles.preview_samples = 128
 
 
         return {'FINISHED'}
@@ -125,7 +125,7 @@ class VIEW3D_PT_choose_render(bpy.types.Panel):
 
         
 
-#class that renders all this
+
 #this class creates a PANEL WITH RENDER SETTINGS
 
 class VIEW3D_PT_render_settings(bpy.types.Panel):
@@ -151,7 +151,7 @@ class VIEW3D_PT_render_settings(bpy.types.Panel):
 
             col = self.layout.column(align = True)
         
-            #col.prop(context.scene.cycles, 'preview_samples')
+            
             
             col = self.layout.column(align = True)
             row_viewport = col.row(align=True)
@@ -185,14 +185,8 @@ class VIEW3D_PT_render_settings(bpy.types.Panel):
 
         row_viewport2.prop(context.scene.render, 'resolution_x')
         row_viewport3.prop(context.scene.render, 'resolution_y')
-        # row_viewport3.prop(self.layout.operator('render.image'))
-        # row_viewport4.prop(context.scene.render, 'image_settings.file_format')
-        # bpy.context.scene.render.image_settings.file_format = 'PNG'
-
-
-        # self.layout.label(text="test.YOLO")
-
-        # bpy.context.scene.render.image_settings.file_format = 'PNG'
+        
+    
         col = self.layout.column(align = True)
         col.prop(context.scene.render.image_settings, 'file_format')
         layout = self.layout.operator('render.image')
@@ -214,7 +208,7 @@ class VIEW3D_PT_render_passes(bpy.types.Panel):
         if bpy.context.scene.render.engine == 'CYCLES':
             self.layout.label(text="Cycles")
             col = self.layout.column(align = True)
-            # bpy.context.scene.view_layers["ViewLayer"].use_pass_mist = True
+
             col.prop(context.scene.view_layers["ViewLayer"], 'use_pass_mist')
             col.prop(context.scene.view_layers["ViewLayer"], 'use_pass_ambient_occlusion')
             col.prop(context.scene.view_layers["ViewLayer"], 'use_pass_environment')
@@ -224,6 +218,7 @@ class VIEW3D_PT_render_passes(bpy.types.Panel):
         elif bpy.context.scene.render.engine == 'BLENDER_EEVEE':
             self.layout.label(text="EEVEE")   
             col = self.layout.column(align = True)
+
             col.prop(context.scene.view_layers["ViewLayer"], 'use_pass_mist')
             col.prop(context.scene.view_layers["ViewLayer"], 'use_pass_environment')
             col.prop(context.scene.view_layers["ViewLayer"], 'use_pass_ambient_occlusion')
@@ -232,14 +227,7 @@ class VIEW3D_PT_render_passes(bpy.types.Panel):
 
         else:
             pass
-            """
-            col = self.layout.column(align = True)
-            self.layout.label(text="Workbench")
-            # bpy.context.scene.shading.light = 'FLAT'
-
-            col.prop(bpy.context.scene, 'shading.light')
-            col.prop(bpy.context.scene, 'shading.color_type')
-           """ 
+             
 
 
 
@@ -270,13 +258,16 @@ class VIEW3D_PT_render_presets(bpy.types.Panel):
 
         else:
             pass
-            
+            """
+            #the basis for creating WB preferences
+            col = self.layout.column(align = True)
+            self.layout.label(text="Workbench")
+            bpy.context.scene.shading.light = 'FLAT'
 
+            col.prop(bpy.context.scene, 'shading.light')
+            col.prop(bpy.context.scene, 'shading.color_type')
+           """
 
-
-# bpy.context.space_data.context = 'OUTPUT'
-# this should theoretically create the output button
-# 
 #register/unregister
 
 def register():
