@@ -65,9 +65,21 @@ class RENDER_OT_create_render(bpy.types.Operator):
     bl_label = "Render"
 
     def execute(self, context):
-        bpy.ops.render.render(write_still = 1)
-        
+        camera = bpy.context.scene.objects.get("Camera")
+        if camera:    
+            bpy.ops.render.render(write_still = 1)
+        else:
+           self.report({'INFO'}, "You don't have camera in your scene")
 
+
+
+        """
+        
+        if bpy_prop_collection[key]:
+            bpy.ops.render.render(write_still = 1)
+        else:
+            print("No camera selected")
+        """
 
         return {'FINISHED'}
 
