@@ -9,7 +9,6 @@ bl_info = {
 
 
 
-#this class creates an Operator for Cycles 
 class CONTEXT_OT_change_render_engine_cycles(bpy.types.Operator):
     """Just for a testing purposes"""
     bl_idname = 'engine.cycles'
@@ -29,7 +28,6 @@ class CONTEXT_OT_change_render_engine_cycles(bpy.types.Operator):
 
     
 
-#this class creates an Operator for Workbench   
 class CONTEXT_OT_change_render_engine_workbench(bpy.types.Operator):
     """Just for a testing purposes"""
     bl_idname = 'engine.workbench'
@@ -39,12 +37,8 @@ class CONTEXT_OT_change_render_engine_workbench(bpy.types.Operator):
         
        
         bpy.context.scene.render.engine = 'BLENDER_WORKBENCH'
-        # bpy.context.scene.shading.light = 'FLAT'
-        # bpy.context.scene.shading.show_object_outline = True
-        # bpy.types.View3DShading.object_outline_color.append()
         return {'FINISHED'}                                                                                                                                            
     
-#this class creates an Operator for Eevee   
 class CONTEXT_OT_change_render_engine_eevee(bpy.types.Operator):
     """Just for a testing purposes"""
     bl_idname = 'engine.eevee'
@@ -70,16 +64,6 @@ class RENDER_OT_create_render(bpy.types.Operator):
             bpy.ops.render.render(write_still = 1)
         else:
            self.report({'INFO'}, "You don't have camera in your scene")
-
-
-
-        """
-        
-        if bpy_prop_collection[key]:
-            bpy.ops.render.render(write_still = 1)
-        else:
-            print("No camera selected")
-        """
 
         return {'FINISHED'}
 
@@ -112,7 +96,6 @@ class CONTEXT_OT_cycles_final_preset(bpy.types.Operator):
 
 
 
-# choosing render engine
 class VIEW3D_PT_choose_render(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -138,7 +121,6 @@ class VIEW3D_PT_choose_render(bpy.types.Panel):
         
 
 
-#this class creates a PANEL WITH RENDER SETTINGS
 
 class VIEW3D_PT_render_settings(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
@@ -270,43 +252,21 @@ class VIEW3D_PT_render_presets(bpy.types.Panel):
 
         else:
             pass
-            """
-            #the basis for creating WB preferences
-            col = self.layout.column(align = True)
-            self.layout.label(text="Workbench")
-            bpy.context.scene.shading.light = 'FLAT'
 
-            col.prop(bpy.context.scene, 'shading.light')
-            col.prop(bpy.context.scene, 'shading.color_type')
-           """
-
-#register/unregister
-
+classes = {    (CONTEXT_OT_change_render_engine_workbench)
+    (VIEW3D_PT_choose_render)
+    (VIEW3D_PT_render_settings)
+    (CONTEXT_OT_change_render_engine_cycles)
+    (CONTEXT_OT_change_render_engine_eevee)
+    (RENDER_OT_create_render)
+    (CONTEXT_OT_starting_preset)
+    (CONTEXT_OT_cycles_final_preset)
+    (VIEW3D_PT_render_passes)
+    (VIEW3D_PT_render_presets)
+}
 def register():
-    bpy.utils.register_class(CONTEXT_OT_change_render_engine_workbench)
-    bpy.utils.register_class(VIEW3D_PT_choose_render)
-    bpy.utils.register_class(VIEW3D_PT_render_settings)
-    bpy.utils.register_class(CONTEXT_OT_change_render_engine_cycles)
-    bpy.utils.register_class(CONTEXT_OT_change_render_engine_eevee)
-    bpy.utils.register_class(RENDER_OT_create_render)
-    bpy.utils.register_class(CONTEXT_OT_starting_preset)
-    bpy.utils.register_class(CONTEXT_OT_cycles_final_preset)
-    bpy.utils.register_class(VIEW3D_PT_render_passes)
-    bpy.utils.register_class(VIEW3D_PT_render_presets)
-
-    
+    classes    
 def unregister():
-    bpy.utils.register_class(CONTEXT_OT_change_render_engine_workbench)
-    bpy.utils.register_class(VIEW3D_PT_choose_render)   
-    bpy.utils.register_class(VIEW3D_PT_render_settings)
-    bpy.utils.register_class(CONTEXT_OT_change_render_engine_cycles)
-    bpy.utils.register_class(CONTEXT_OT_change_render_engine_eevee)
-    bpy.utils.register_class(RENDER_OT_create_render)
-    bpy.utils.register_class(CONTEXT_OT_starting_preset)
-    bpy.utils.register_class(CONTEXT_OT_cycles_final_preset)
-    bpy.utils.register_class(VIEW3D_PT_render_passes)
-    bpy.utils.register_class(VIEW3D_PT_render_presets)
-
-
+    classes 
 if __name__ == '__main__':
     register() 
